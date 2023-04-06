@@ -16,8 +16,12 @@ public class PlayerControllerX : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip moneySound;
     public AudioClip explodeSound;
+    public AudioClip bounceSound;
 
     public float upperLimit = 15.0f;
+
+    public float yMin;
+    public float bounceForce;
 
 
     // Start is called before the first frame update
@@ -43,6 +47,11 @@ public class PlayerControllerX : MonoBehaviour
         if (transform.position.y > upperLimit)
         {
             transform.position = new Vector3(transform.position.x, upperLimit, transform.position.z);
+        }
+        if (transform.position.y <yMin)
+        {
+            playerRb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+            playerAudio.PlayOneShot(bounceSound, 1.0f);
         }
     }
 
